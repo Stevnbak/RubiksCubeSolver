@@ -1,0 +1,17 @@
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\RubiksCubeSolver.csproj.AssemblyReference.cache
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\RubiksCubeSolver.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\RubiksCubeSolver.AssemblyInfoInputs.cache
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\RubiksCubeSolver.AssemblyInfo.cs
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\RubiksCubeSolver.csproj.CoreCompileInputs.cache
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\bin\Debug\net6.0\RubiksCubeSolver.exe
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\bin\Debug\net6.0\RubiksCubeSolver.deps.json
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\bin\Debug\net6.0\RubiksCubeSolver.runtimeconfig.json
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\bin\Debug\net6.0\RubiksCubeSolver.dll
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\bin\Debug\net6.0\RubiksCubeSolver.pdb
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\RubiksCubeSolver.dll
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\refint\RubiksCubeSolver.dll
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\RubiksCubeSolver.pdb
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\RubiksCubeSolver.genruntimeconfig.cache
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\ref\RubiksCubeSolver.dll
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\Interop.Microsoft.Office.Interop.Excel.dll
+D:\OneDrive - TEC\SO\SOP\RubiksCubeSolver\obj\Debug\net6.0\RubiksCubeSolver.csproj.ResolveComReference.cache
