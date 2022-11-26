@@ -485,9 +485,9 @@ namespace RubiksCubeSolver
                     else if (corners[0] == 0 && corners[1] == 0 && corners[2] == s && corners[3] == s) return s + "Crown";
                     else if (corners[0] == 0 && corners[1] == 0 && corners[2] != s && corners[3] != s) return s + "Bunny";
                     else if (corners[1] == 0 && corners[2] == s && corners[3] != 0 && corners[3] != s && corners[0] != 0) return s + "Nazi";
-                    else if (corners[3] == 0 && corners[2] != s && corners[0] != 0 && corners[1] != 0) return s + "AntiNazi";
+                    else if (corners[3] == 0 && corners[2] != s && corners[2] != 0 && corners[0] != 0 && corners[1] != 0) return s + "AntiNazi";
                     else if (corners[0] == corners[2] && corners[1] == corners[3] && corners[0] != 0 && corners[1] != 0) return s + "Blank";
-                    else if (corners[0] == corners[2] && corners[3] == s && corners[1] != 0) return s + "Zamboni";
+                    else if (corners[0] == corners[2] && corners[3] == s && corners[1] != 0 && corners[0] != 0) return s + "Zamboni";
                 }
             }
             return "1None";
