@@ -28,14 +28,15 @@ namespace RubiksCubeSolver
             Console.WriteLine("Opening Excel workbook...");
             //Open excel
             Excel.Application xl = new Excel.Application();
-            xl.Visible = true;
+            //xl.Visible = true;
             Excel.Workbook wb = xl.Workbooks.Open(Directory.GetCurrentDirectory() + "\\Data.xlsx");
             Excel.Worksheet template = wb.Sheets[1];
-            template.Copy(Type.Missing, wb.Sheets[wb.Sheets.Count]); // copy
+            template.Copy(Type.Missing, wb.Sheets[wb.Sheets.Count]);
             Excel.Worksheet sheet = wb.Sheets[wb.Sheets.Count];
             sheet.Name = "Data - " + (wb.Sheets.Count - 1);
 
             Console.WriteLine($"Starting solving {amount} cubes...");
+            Console.ForegroundColor = ConsoleColor.White;
 
             for (int i = 0; i < amount; i++)
             {
@@ -66,17 +67,28 @@ namespace RubiksCubeSolver
                 Method2.SolvePLL(cube22);
                 checkSolved(cube22);
                 sheet.Range["E" + (i + 2)].Value = cube22.totalRotations;
+
+                updatePercent(i + 1, amount);
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Done solving all {amount} cubes");
+            Console.WriteLine($"\nDone solving all {amount} cubes");
             Console.ForegroundColor = ConsoleColor.White;
 
+            xl.Visible = true;
             wb.Save();
             ///wb.Close();
             ///xl.Quit();
-        }
 
+            Console.ReadKey();
+        }
+        private static void updatePercent(double current, double all)
+        {
+            double percent = (current / all) * 100;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write($".... {current}/{all} - {(int) percent}% ....");
+        }
+        //Solve check
         public static void checkSolved(Cube cube)
         {
             //Check solved...
@@ -89,7 +101,6 @@ namespace RubiksCubeSolver
                 Console.ReadKey();
             }
         }
-
         //Do algorithm
         public static void performAlgorithm(string algorithm, Cube cube, int top, int front)
         {
