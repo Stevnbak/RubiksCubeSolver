@@ -1,4 +1,5 @@
 ﻿using Excel = Microsoft.Office.Interop.Excel;
+
 namespace RubiksCubeSolver
 {
     internal class Program
@@ -99,35 +100,9 @@ namespace RubiksCubeSolver
             else if (front == 0) right = top - 1 < 1 ? 4 : top - 1;
             else if (front == 5) right = top + 1 > 4 ? 1 : top + 1;
             else right = top - front == 1 ? 5 : top - front == 3 ? 5 : 0;
-            int left = right switch
-            {
-                0 => 5,
-                1 => 3,
-                2 => 4,
-                3 => 1,
-                4 => 2,
-                5 => 0,
-                _ => -1,
-            };
-            int down = top switch
-            {
-                0 => 5,
-                1 => 3,
-                2 => 4,
-                3 => 1,
-                4 => 2,
-                5 => 0,
-                _ => -1,
-            };
-            int back = front switch
-            {
-                0 => 5,
-                1 => 3,
-                2 => 4,
-                3 => 1,
-                4 => 2,
-                5 => 0,
-            };
+            int left = right switch {0 => 5, 1 => 3, 2 => 4, 3 => 1, 4 => 2, 5 => 0,};
+            int down = top switch {0 => 5, 1 => 3, 2 => 4, 3 => 1, 4 => 2, 5 => 0,};
+            int back = front switch {0 => 5, 1 => 3, 2 => 4, 3 => 1, 4 => 2, 5 => 0,};
 
             //Convert
             foreach (char part in algorithm)

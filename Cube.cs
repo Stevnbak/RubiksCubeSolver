@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace RubiksCubeSolver
         //Total rotations
         public int totalRotations = 0;
 
-        //Constructor
+        //Constructors
         public Cube(bool scramble)
         {
             string[] colors = new string[6] { "w", "o", "g", "r", "b", "y" };
@@ -31,13 +32,26 @@ namespace RubiksCubeSolver
         }
         public Cube(Cube cube)
         {
-            for(int i = 0; i < cube.state.Length; i++)
+            for (int i = 0; i < cube.state.Length; i++)
             {
                 state[i] = cube.state[i];
             }
             totalRotations = 0;
         }
+        //Scramble cube
+        private void Scramble(int moves)
+        {
+            Random rnd = new Random();
+            for (int i = 0; i < moves; i++)
+            {
+                string[] algorithms = new string[20] {"FRUruf","RUrURUUr","luLulUUL","RbRFFrBRFFRR","FFurLFFRluFF","RRURUrururUr","RuruRURDruRdrUUr","RUrurFRRuruRUrf","RRuRuRUrURRdURurD","rURurfuFRUrFrfRuR","RRDrUURdrUUr","RUruYURuyr","rFRUrufUR","RUburURBr","yruRurURurUUYR","RUURRuRurUUFRf","RUrUrFRfUUrFRf","XFRUruxfUFRUruf","uRUrubrFRfB","YRUruyURur"
+                };
+                int r = rnd.Next(20);
+                Program.performAlgorithm(algorithms[r], this, 0, 2);
+            }
+        }
 
+        //Log current cube state to console
         public void Log()
         {
             Console.WriteLine("---------------------------------");
@@ -105,60 +119,13 @@ namespace RubiksCubeSolver
             }
         }
 
+        //Rotate face clock wise.
         public void RotateClockWise(int side, bool count = true)
         {
             if (count) totalRotations++;
             //Create copy of state
             string[] oldState = new string[54];
             state.CopyTo(oldState, 0);
-
-            /**
-            //Start number
-            int start = side * 9;
-            //Move the face
-            //  Corners
-            state[start + 0] = oldState[start + 6];
-            state[start + 6] = oldState[start + 8];
-            state[start + 2] = oldState[start + 0];
-            state[start + 8] = oldState[start + 2];
-            //  Edges
-            state[start + 1] = oldState[start + 3];
-            state[start + 3] = oldState[start + 7];
-            state[start + 7] = oldState[start + 5];
-            state[start + 5] = oldState[start + 1];
-
-            //Move the sides
-            int[] affected;
-            switch (side)
-            {
-                case 0:
-                    affected = new int[12] {9,10,11,36,37,38,27,28,29,18,19,20};
-                    break;
-                case 1:
-                    affected = new int[12] {0,3,6,18,21,24,45,48,51,44,41,38};
-                    break;
-                case 2:
-                    affected = new int[12] {6,7,8, 27, 30,33,47,46,45,17,14,11};
-                    break;
-                case 3:
-                    affected = new int[12] {8,5,2,36,39,42,53,50,47,26,23,20};
-                    break;
-                case 4:
-                    affected = new int[12] {2,1,0,15,12,9,53,52,51,29,32,35};
-                    break;
-                case 5:
-                    affected = new int[12] {15,16,17,24,25,26,33,34,35,42,43,44};
-                    break;
-                default:
-                    affected = new int[12];
-                    break;
-            }
-            //Actual rotation
-            for (int i = 0; i < 12; i++)
-            {
-                //state[affectedNumbers[i]] = oldState[affectedNumbers[(i + 3 > 11 ? 3 - (12 - i) : i + 3)]];
-                state[affected[i]] = oldState[affected[(i - 3 < 0 ? 12 + (i - 3) : i - 3)]];
-            }*/
 
             //Create dictionary of face pairs
             Dictionary<int, int> pairs;
@@ -257,18 +224,6 @@ namespace RubiksCubeSolver
             RotateCenterClockWise(side, true);
             RotateCenterClockWise(side, false);
             RotateCenterClockWise(side, false);
-        }
-        private void Scramble(int moves)
-        {
-            Random rnd = new Random();
-            for (int i = 0; i < moves; i++)
-            {
-                int s = rnd.Next(4);
-                if(s == 0) Method1.OLLCornerAlgorithm(this, 0, 2);
-                else if (s == 1) Method1.OLLCrossAlgorithm(this, 0, 2);
-                else if (s == 1) Method1.PLLCornerAlgorithm(this, 0, 2);
-                else if (s == 1) Method1.PLLEdgeAlgorithm(this, 0, 2);
-            }
         }
         public bool IsSolved()
         {

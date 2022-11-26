@@ -102,7 +102,6 @@ namespace RubiksCubeSolver
                     break;
                 case "City":
                     ollAlgorithm = "uRUrubrFRfB";
-                    ///algorithm = "URURRurFRURURuf";
                     break;
                 //Fishes
                 case "MountedFish":
@@ -353,8 +352,6 @@ namespace RubiksCubeSolver
                     continue;
                 }
             }
-            ///Console.WriteLine("[{0}]", String.Join(", ", cornerStates));
-
             for (int s = 1; s <= 4; s++)
             {
                 //Edges
@@ -367,8 +364,6 @@ namespace RubiksCubeSolver
                 right = right switch { 5 => 7, 7 => 5, _ => right, };
                 down = down switch { 5 => 7, 7 => 5, _ => down, };
                 up = up switch { 5 => 7, 7 => 5, _ => up, };
-
-                ///Console.WriteLine($"Side:{s} Left:{left} Right:{right} Down:{down} Up:{up}");
 
                 if (cube.state[up] == "w" && cube.state[down] == "w" && cube.state[right] == "w" && cube.state[left] == "w")
                 {
@@ -402,7 +397,6 @@ namespace RubiksCubeSolver
                 {
                     edgeCase = "dot";
                 }
-                ///Console.WriteLine(edgeCase);
 
                 //Corners
                 int[] corners = new int[4];
@@ -411,8 +405,7 @@ namespace RubiksCubeSolver
                 corners[2] = cornerStates[s == 1 ? 0 : s == 2 ? 2 : s == 3 ? 3 : 1];
                 corners[3] = cornerStates[s == 1 ? 2 : s == 2 ? 3 : s == 3 ? 1 : 0];
 
-                //Find OLL
-
+                //Find OLL state
                 if (edgeCase == "full")
                 {
                     if (corners[0] == 0 && corners[1] == 0 && corners[2] == 0 && corners[3] == 0) return s + "done";
@@ -474,7 +467,6 @@ namespace RubiksCubeSolver
                     if (corners[0] == 0 && corners[2] == s && corners[3] != 0 && corners[3] != s && corners[3] != corners[1] && corners[1] != 0) return s + "ReverseLightning";
                     else if (corners[0] == 0 && corners[2] == 0 && corners[1] == corners[3] && corners[1] != 0) return s + "InverseP";
                     else if (corners[1] == 0 && corners[3] == s && corners[2] != 0 && corners[2] != s && corners[0] != 0) return s + "AntiKite";
-                    ///else if (corners[0] == 0 && corners[3] == 0 && corners[2] == s && corners[1] != 0) return s + "Wario";
                     else if (corners[0] == 0 && corners[1] == 0 && corners[2] == s && corners[3] == s) return s + "AntiPoodle";
                     else if (corners[0] == 0 && corners[1] == 0 && corners[2] != corners[3] && corners[3] != 0) return s + "WTF";
                 } else if (edgeCase == "bottomright")
