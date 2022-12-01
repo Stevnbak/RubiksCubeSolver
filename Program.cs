@@ -9,16 +9,6 @@ namespace RubiksCubeSolver
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Rubik's cube solver started...");
 
-            //Open excel
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Opening Excel workbook...");
-            Application xl = new Application();
-            Workbook wb = xl.Workbooks.Open(Directory.GetCurrentDirectory() + "\\Data.xlsx");
-            Worksheet template = wb.Sheets[1];
-            template.Copy(Type.Missing, wb.Sheets[wb.Sheets.Count]);
-            Worksheet sheet = wb.Sheets[wb.Sheets.Count];
-            sheet.Name = "Data - " + (wb.Sheets.Count - 1);
-            
             //Get amount of cubes
             int amount = 0;
             while (amount == 0)
@@ -39,8 +29,11 @@ namespace RubiksCubeSolver
             }
 
             //Solve cubes
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Starting solving {amount} cubes...");
             Console.ForegroundColor = ConsoleColor.White;
+
+            object[,] data = new object[amount, 5];
 
             for (int i = 0; i < amount; i++)
             {
@@ -48,40 +41,59 @@ namespace RubiksCubeSolver
                 Cube cube12 = new(cube11);
                 Cube cube21 = new(cube11);
                 Cube cube22 = new(cube11);
-                //Save cube state to excel
-                sheet.Range["A" + (i + 2)].Value = $"[{String.Join(";", cube11.state)}]";
-                //Solve cubes
+
+                //Save cube state
+                data[i, 0] = $"[{String.Join(";", cube11.state)}]";
+                
                 //  11
                 Method1.SolveOLL(cube11);
                 Method1.SolvePLL(cube11);
                 checkSolved(cube11);
-                sheet.Range["B" + (i + 2)].Value = cube11.totalRotations;
+                data[i, 1] = cube11.totalRotations;
                 //  12
                 Method1.SolveOLL(cube12);
                 Method2.SolvePLL(cube12);
                 checkSolved(cube12);
-                sheet.Range["C" + (i + 2)].Value = cube12.totalRotations;
+                data[i, 2] = cube12.totalRotations;
                 //  21
                 Method2.SolveOLL(cube21);
                 Method1.SolvePLL(cube21);
                 checkSolved(cube21);
-                sheet.Range["D" + (i + 2)].Value = cube21.totalRotations;
+                data[i, 3] = cube21.totalRotations;
                 //  22
                 Method2.SolveOLL(cube22);
                 Method2.SolvePLL(cube22);
                 checkSolved(cube22);
-                sheet.Range["E" + (i + 2)].Value = cube22.totalRotations;
-
+                data[i, 4] = cube22.totalRotations;
                 updatePercent(i + 1, amount);
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\nDone solving all {amount} cubes");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
-            xl.Visible = true;
+            //Open Excel
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Opening Excel workbook...");
+
+            Application xl = new Application();
+            Workbook wb = xl.Workbooks.Open(Directory.GetCurrentDirectory() + "\\Data.xlsx");
+            Worksheet template = wb.Sheets[1];
+            template.Copy(Type.Missing, wb.Sheets[wb.Sheets.Count]);
+            Worksheet sheet = wb.Sheets[wb.Sheets.Count];
+            sheet.Name = "Data - " + (wb.Sheets.Count - 1);
+            //Add data to excel
+            Console.WriteLine("Adding data to Excel...");
+            Console.ForegroundColor = ConsoleColor.White;
+            sheet.Range["A" + 2, "E" + (amount + 1)].Value = data;
+
             wb.Save();
 
+            //Done!
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\nDone saving all the data");
+            xl.Visible = true;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.ReadKey();
         }
         private static void updatePercent(double current, double all)
