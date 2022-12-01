@@ -1,4 +1,4 @@
-﻿using Excel = Microsoft.Office.Interop.Excel;
+﻿using Microsoft.Office.Interop.Excel;
 
 namespace RubiksCubeSolver
 {
@@ -6,7 +6,20 @@ namespace RubiksCubeSolver
     {
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Rubik's cube solver started...");
+
+            //Open excel
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Opening Excel workbook...");
+            Application xl = new Application();
+            Workbook wb = xl.Workbooks.Open(Directory.GetCurrentDirectory() + "\\Data.xlsx");
+            Worksheet template = wb.Sheets[1];
+            template.Copy(Type.Missing, wb.Sheets[wb.Sheets.Count]);
+            Worksheet sheet = wb.Sheets[wb.Sheets.Count];
+            sheet.Name = "Data - " + (wb.Sheets.Count - 1);
+            
+            //Get amount of cubes
             int amount = 0;
             while (amount == 0)
             {
@@ -24,17 +37,8 @@ namespace RubiksCubeSolver
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Opening Excel workbook...");
-            //Open excel
-            Excel.Application xl = new Excel.Application();
-            //xl.Visible = true;
-            Excel.Workbook wb = xl.Workbooks.Open(Directory.GetCurrentDirectory() + "\\Data.xlsx");
-            Excel.Worksheet template = wb.Sheets[1];
-            template.Copy(Type.Missing, wb.Sheets[wb.Sheets.Count]);
-            Excel.Worksheet sheet = wb.Sheets[wb.Sheets.Count];
-            sheet.Name = "Data - " + (wb.Sheets.Count - 1);
 
+            //Solve cubes
             Console.WriteLine($"Starting solving {amount} cubes...");
             Console.ForegroundColor = ConsoleColor.White;
 
@@ -77,8 +81,6 @@ namespace RubiksCubeSolver
 
             xl.Visible = true;
             wb.Save();
-            ///wb.Close();
-            ///xl.Quit();
 
             Console.ReadKey();
         }

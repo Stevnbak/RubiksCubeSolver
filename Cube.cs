@@ -28,7 +28,8 @@ namespace RubiksCubeSolver
                     state[c * 9 + i] = colors[c];
                 }
             }
-            if (scramble) Scramble(20);
+            if (scramble) Scramble(10);
+            totalRotations = 0;
         }
         public Cube(Cube cube)
         {
