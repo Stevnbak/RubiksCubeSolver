@@ -329,31 +329,31 @@ namespace RubiksCubeSolver
         //Check state
         private static string checkOLLState(Cube cube)
         {
-            //Corners
-            int[] cornerStates = new int[4];
-            for (int i = 1; i <= 4; i++)
-            {
-                int corner = i == 1 ? 0 : i == 2 ? 2 : i == 3 ? 6 : 8;
-                if (cube.state[corner] == "w")
+                //Corners
+                int[] cornerStates = new int[4];
+                for (int i = 1; i <= 4; i++)
                 {
-                    cornerStates[i - 1] = 0;
-                    continue;
+                    int corner = i == 1 ? 0 : i == 2 ? 2 : i == 3 ? 6 : 8;
+                    if (cube.state[corner] == 'w')
+                    {
+                        cornerStates[i - 1] = 0;
+                        continue;
+                    }
+                    int side1 = i == 1 ? 1 : i == 2 ? 4 : i == 3 ? 2 : 3;
+                    int side2 = i == 1 ? 4 : i == 2 ? 3 : i == 3 ? 1 : 2;
+                    if (cube.state[side1 * 9] == 'w')
+                    {
+                        cornerStates[i - 1] = side1;
+                        continue;
+                    }
+                    else if (cube.state[side2 * 9 + 2] == 'w')
+                    {
+                        cornerStates[i - 1] = side2;
+                        continue;
+                    }
                 }
-                int side1 = i == 1 ? 1 : i == 2 ? 4 : i == 3 ? 2 : 3;
-                int side2 = i == 1 ? 4 : i == 2 ? 3 : i == 3 ? 1 : 2;
-                if (cube.state[side1 * 9] == "w")
+                for (int s = 1; s <= 4; s++)
                 {
-                    cornerStates[i - 1] = side1;
-                    continue;
-                }
-                else if (cube.state[side2 * 9 + 2] == "w")
-                {
-                    cornerStates[i - 1] = side2;
-                    continue;
-                }
-            }
-            for (int s = 1; s <= 4; s++)
-            {
                 //Edges
                 string edgeCase;
                 int left = ((s - 1) * 2 + 1);
@@ -365,31 +365,31 @@ namespace RubiksCubeSolver
                 down = down switch { 5 => 7, 7 => 5, _ => down, };
                 up = up switch { 5 => 7, 7 => 5, _ => up, };
 
-                if (cube.state[up] == "w" && cube.state[down] == "w" && cube.state[right] == "w" && cube.state[left] == "w")
+                if (cube.state[up] == 'w' && cube.state[down] == 'w' && cube.state[right] == 'w' && cube.state[left] == 'w')
                 {
                     //Full cross
                     edgeCase = "full";
-                } else if (cube.state[up] == "w" && cube.state[down] == "w")
+                } else if (cube.state[up] == 'w' && cube.state[down] == 'w')
                 {
                     //Vertical bar
                     edgeCase = "vbar";
-                } else if (cube.state[left] == "w" && cube.state[right] == "w")
+                } else if (cube.state[left] == 'w' && cube.state[right] == 'w')
                 {
                     //Horizontal bar
                     edgeCase = "hbar";
-                } else if (cube.state[up] == "w" && cube.state[left] == "w")
+                } else if (cube.state[up] == 'w' && cube.state[left] == 'w')
                 {
                     //Top left
                     edgeCase = "topleft";
-                } else if (cube.state[up] == "w" && cube.state[right] == "w")
+                } else if (cube.state[up] == 'w' && cube.state[right] == 'w')
                 {
                     //Top right
                     edgeCase = "topright";
-                } else if (cube.state[down] == "w" && cube.state[left] == "w")
+                } else if (cube.state[down] == 'w' && cube.state[left] == 'w')
                 {
                     //Bottom left
                     edgeCase = "bottomleft";
-                } else if (cube.state[down] == "w" && cube.state[right] == "w")
+                } else if (cube.state[down] == 'w' && cube.state[right] == 'w')
                 {
                     //Bottom right
                     edgeCase = "bottomright";
@@ -496,17 +496,17 @@ namespace RubiksCubeSolver
         private static string checkPLLState(Cube cube)
         {
             //Corners
-            KeyValuePair<string, string>[] cornerStates = new KeyValuePair<string, string>[4];
+            KeyValuePair<char, char>[] cornerStates = new KeyValuePair<char, char>[4];
             for (int i = 0; i < 4; i++)
             {
                 int side1 = i == 0 ? 1 : i == 1 ? 4 : i == 2 ? 2 : 3;
                 int side2 = i == 0 ? 4 : i == 1 ? 3 : i == 2 ? 1 : 2;
-                string c1 = cube.state[side1 * 9];
-                string c2 = cube.state[side2 * 9 + 2];
-                cornerStates[i] = new KeyValuePair<string, string>(c1, c2);
+                char c1 = cube.state[side1 * 9];
+                char c2 = cube.state[side2 * 9 + 2];
+                cornerStates[i] = new KeyValuePair<char, char>(c1, c2);
             }
             //Edges
-            string[] edgeStates = new string[4];
+            char[] edgeStates = new char[4];
             for (int i = 0; i < 4; i++)
             {
                 int side = i == 0 ? 4 : i == 1 ? 1 : i == 2 ? 3 : 2;
@@ -517,13 +517,13 @@ namespace RubiksCubeSolver
             for (int s = 1; s <= 4; s++)
             {
                 //Corners
-                KeyValuePair<string, string>[] corners = new KeyValuePair<string, string>[4];
+                KeyValuePair<char, char>[] corners = new KeyValuePair<char, char>[4];
                 corners[0] = cornerStates[s == 1 ? 1 : s == 2 ? 0 : s == 3 ? 2 : 3];
                 corners[1] = cornerStates[s == 1 ? 3 : s == 2 ? 1 : s == 3 ? 0 : 2];
                 corners[2] = cornerStates[s == 1 ? 0 : s == 2 ? 2 : s == 3 ? 3 : 1];
                 corners[3] = cornerStates[s == 1 ? 2 : s == 2 ? 3 : s == 3 ? 1 : 0];
                 //Edges
-                string[] edges = new string[4];
+                char[] edges = new char[4];
                 edges[0] = edgeStates[s == 1 ? 2 : s == 2 ? 0 : s == 3 ? 1 : 3];
                 edges[1] = edgeStates[s == 1 ? 0 : s == 2 ? 1 : s == 3 ? 3 : 2];
                 edges[2] = edgeStates[s == 1 ? 3 : s == 2 ? 2 : s == 3 ? 0 : 1];
@@ -544,7 +544,7 @@ namespace RubiksCubeSolver
                     else if (edges[0] == corners[2].Key && edges[3] == corners[0].Value) return s + "H";
                 }
                 //Edges correct
-                else if (edges[0] == edges[3] switch{"b"=>"g","g"=>"b","r"=>"o","o"=>"r",_=>""} && edges[1] == edges[2] switch{"b"=>"g","g"=>"b","r"=>"o","o"=>"r",_=>""})
+                else if (edges[0] == edges[3] switch{'b'=>'g','g'=>'b','r'=>'o','o'=>'r'} && edges[1] == edges[2] switch{'b'=>'g','g'=>'b','r'=>'o','o'=>'r'})
                 {
                     if (corners[2].Key == edges[3] && corners[2].Value == edges[1])
                     {

@@ -33,38 +33,26 @@ namespace RubiksCubeSolver
             Console.WriteLine($"Starting solving {amount} cubes...");
             Console.ForegroundColor = ConsoleColor.White;
 
-            object[,] data = new object[amount, 5];
+            object[,] data = new object[amount, 3];
 
             for (int i = 0; i < amount; i++)
             {
-                Cube cube11 = new(true);
-                Cube cube12 = new(cube11);
-                Cube cube21 = new(cube11);
-                Cube cube22 = new(cube11);
+                Cube cube1 = new(true);
+                Cube cube2 = new(cube1);
 
                 //Save cube state
-                data[i, 0] = $"[{String.Join(";", cube11.state)}]";
+                data[i, 0] = $"[{String.Join(";", cube1.state)}]";
                 
-                //  11
-                Method1.SolveOLL(cube11);
-                Method1.SolvePLL(cube11);
-                checkSolved(cube11);
-                data[i, 1] = cube11.totalRotations;
-                //  12
-                Method1.SolveOLL(cube12);
-                Method2.SolvePLL(cube12);
-                checkSolved(cube12);
-                data[i, 2] = cube12.totalRotations;
-                //  21
-                Method2.SolveOLL(cube21);
-                Method1.SolvePLL(cube21);
-                checkSolved(cube21);
-                data[i, 3] = cube21.totalRotations;
-                //  22
-                Method2.SolveOLL(cube22);
-                Method2.SolvePLL(cube22);
-                checkSolved(cube22);
-                data[i, 4] = cube22.totalRotations;
+                //  1 - Begynder
+                Method1.SolveOLL(cube1);
+                Method1.SolvePLL(cube1);
+                checkSolved(cube1);
+                data[i, 1] = cube1.totalRotations;
+                //  2 - CFOP
+                Method2.SolveOLL(cube2);
+                Method2.SolvePLL(cube2);
+                checkSolved(cube2);
+                data[i, 2] = cube2.totalRotations;
                 updatePercent(i + 1, amount);
             }
 
@@ -75,7 +63,6 @@ namespace RubiksCubeSolver
             //Open Excel
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Opening Excel workbook...");
-
             Application xl = new Application();
             Workbook wb = xl.Workbooks.Open(Directory.GetCurrentDirectory() + "\\Data.xlsx");
             Worksheet template = wb.Sheets[1];
@@ -85,8 +72,7 @@ namespace RubiksCubeSolver
             //Add data to excel
             Console.WriteLine("Adding data to Excel...");
             Console.ForegroundColor = ConsoleColor.White;
-            sheet.Range["A" + 2, "E" + (amount + 1)].Value = data;
-
+            sheet.Range["A" + 2, "C" + (amount + 1)].Value = data;
             wb.Save();
 
             //Done!

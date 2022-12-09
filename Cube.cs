@@ -12,7 +12,7 @@ namespace RubiksCubeSolver
     internal class Cube
     {
         //State array
-        public string[] state = new string[54];
+        public char[] state = new char[54];
 
         //Total rotations
         public int totalRotations = 0;
@@ -20,8 +20,8 @@ namespace RubiksCubeSolver
         //Constructors
         public Cube(bool scramble)
         {
-            string[] colors = new string[6] { "w", "o", "g", "r", "b", "y" };
-            for(int c = 0; c < 6; c++)
+            char[] colors = new char[6] { 'w', 'o', 'g', 'r', 'b', 'y' };
+            for (int c = 0; c < 6; c++)
             {
                 for (int i = 0; i < 9; i++)
                 {
@@ -45,8 +45,7 @@ namespace RubiksCubeSolver
             Random rnd = new Random();
             for (int i = 0; i < moves; i++)
             {
-                string[] algorithms = new string[20] {"FRUruf","RUrURUUr","luLulUUL","RbRFFrBRFFRR","FFurLFFRluFF","RRURUrururUr","RuruRURDruRdrUUr","RUrurFRRuruRUrf","RRuRuRUrURRdURurD","rURurfuFRUrFrfRuR","RRDrUURdrUUr","RUruYURuyr","rFRUrufUR","RUburURBr","yruRurURurUUYR","RUURRuRurUUFRf","RUrUrFRfUUrFRf","XFRUruxfUFRUruf","uRUrubrFRfB","YRUruyURur"
-                };
+                string[] algorithms = new string[20] {"FRUruf","RUrURUUr","luLulUUL","RbRFFrBRFFRR","FFurLFFRluFF","RRURUrururUr","RuruRURDruRdrUUr","RUrurFRRuruRUrf","RRuRuRUrURRdURurD","rURurfuFRUrFrfRuR","RRDrUURdrUUr","RUruYURuyr","rFRUrufUR","RUburURBr","yruRurURurUUYR","RUURRuRurUUFRf","RUrUrFRfUUrFRf","XFRUruxfUFRUruf","uRUrubrFRfB","YRUruyURur"};
                 int r = rnd.Next(20);
                 Program.performAlgorithm(algorithms[r], this, 0, 2);
             }
@@ -108,14 +107,14 @@ namespace RubiksCubeSolver
             Console.WriteLine("---------------------------------");
 
             //Color function
-            ConsoleColor color(string value)
+            ConsoleColor color(char value)
             {
-                if (value == "w") return ConsoleColor.White;
-                else if (value == "o") return ConsoleColor.DarkYellow;
-                else if (value == "g") return ConsoleColor.Green;
-                else if (value == "r") return ConsoleColor.DarkRed;
-                else if (value == "b") return ConsoleColor.Blue;
-                else if (value == "y") return ConsoleColor.Yellow;
+                if (value == 'w') return ConsoleColor.White;
+                else if (value == 'o') return ConsoleColor.DarkYellow;
+                else if (value == 'g') return ConsoleColor.Green;
+                else if (value == 'r') return ConsoleColor.DarkRed;
+                else if (value == 'b') return ConsoleColor.Blue;
+                else if (value == 'y') return ConsoleColor.Yellow;
                 else return ConsoleColor.Black;
             }
         }
@@ -125,7 +124,7 @@ namespace RubiksCubeSolver
         {
             if (count) totalRotations++;
             //Create copy of state
-            string[] oldState = new string[54];
+            char[] oldState = new char[54];
             state.CopyTo(oldState, 0);
 
             //Create dictionary of face pairs
@@ -178,7 +177,7 @@ namespace RubiksCubeSolver
         {
             if (count) totalRotations++;
             //Create copy of state
-            string[] oldState = new string[54];
+            char[] oldState = new char[54];
             state.CopyTo(oldState, 0);
 
             //Create dictionary of face pairs
